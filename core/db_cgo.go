@@ -7,6 +7,7 @@ import (
 
 	"github.com/mattn/go-sqlite3"
 	"github.com/pocketbase/dbx"
+	_ "github.com/tursodatabase/libsql-client-go/libsql"
 )
 
 func init() {
@@ -40,11 +41,13 @@ func init() {
 	dbx.BuilderFuncMap["pb_sqlite3"] = dbx.BuilderFuncMap["sqlite3"]
 }
 
-func connectDB(dbPath string) (*dbx.DB, error) {
-	db, err := dbx.Open("pb_sqlite3", dbPath)
+func connectDB(dbUrl string) (*dbx.DB, error) {
+
+	tursoDb, err := sql.Open("libsql", dbUrl)
 	if err != nil {
 		return nil, err
 	}
+	db := dbx.NewFromDB(tursoDb, "libsql")
 
 	return db, nil
 }
