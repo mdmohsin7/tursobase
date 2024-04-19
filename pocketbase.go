@@ -33,6 +33,7 @@ type PocketBase struct {
 	*appWrapper
 
 	devFlag           bool
+	dbUrlFlag         string
 	dataDirFlag       string
 	encryptionEnvFlag string
 	hideStartBanner   bool
@@ -117,6 +118,7 @@ func NewWithConfig(config Config) *PocketBase {
 	// initialize the app instance
 	pb.appWrapper = &appWrapper{core.NewBaseApp(core.BaseAppConfig{
 		IsDev:            pb.devFlag,
+		DbUrl:            pb.dbUrlFlag,
 		DataDir:          pb.dataDirFlag,
 		EncryptionEnv:    pb.encryptionEnvFlag,
 		DataMaxOpenConns: config.DataMaxOpenConns,
@@ -190,6 +192,13 @@ func (pb *PocketBase) eagerParseFlags(config *Config) error {
 		"dir",
 		config.DefaultDataDir,
 		"the PocketBase data directory",
+	)
+
+	pb.RootCmd.PersistentFlags().StringVar(
+		&pb.dbUrlFlag,
+		"db",
+		config.DefaultDataDir,
+		"the database connection URL of Turso",
 	)
 
 	pb.RootCmd.PersistentFlags().StringVar(

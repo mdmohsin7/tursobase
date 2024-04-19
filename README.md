@@ -1,3 +1,10 @@
+## Experimental
+Tursobase is an experimental fork of Pocketbase. It uses Turso's primary DB as the local DB. Build the binary and run it while passing the --db flag with your Turso DB connection URL as the value.
+```
+./base serve --db "libsql://test.turso.io?authToken=token"
+```
+Backup/Restore will not work.
+
 <p align="center">
     <a href="https://pocketbase.io" target="_blank" rel="noopener">
         <img src="https://i.imgur.com/5qimnm5.png" alt="PocketBase - open source backend in 1 file" />
