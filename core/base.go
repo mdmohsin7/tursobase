@@ -1185,6 +1185,8 @@ func (app *BaseApp) registerDefaultHooks() {
 	if err := app.initAutobackupHooks(); err != nil {
 		app.Logger().Error("Failed to init auto backup hooks", slog.String("error", err.Error()))
 	}
+
+	registerCachedCollectionsAppHooks(app)
 }
 
 // getLoggerMinLevel returns the logger min level based on the
